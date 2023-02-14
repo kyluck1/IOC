@@ -1,0 +1,36 @@
+#Fernando Vitor Teixeira Nogueira - 21950643
+#Rebeca Pacheco Correa - 219
+
+.data
+msg1: .asciiz "CALCULO DE AREA DE FIGURAS PLANAS\n"
+msg3: .asciiz "\nDigite o numero da opcao desejada: "
+msg2: .asciiz "QUADRADO - 1 | RETANGULO - 2 | TRIANGULO - 3 | TRAPEZIO - 4 | LOSANGO - 5 | CIRCULO - 6\n"
+msg4: .asciiz "eh 5\n"
+
+.text
+li $v0, 4
+la $a0, msg1
+syscall
+
+li $v0, 4
+la $a0, msg2
+syscall
+
+li $v0, 4
+la $a0, msg3
+syscall
+
+li $v0, 5
+syscall
+
+move $t0, $v0
+beq $t0, 5, imprime
+
+imprime:
+	li $v0, 4
+	la $a0, msg4
+	syscall
+	
+li $v0,10
+syscall
+	
