@@ -1,0 +1,268 @@
+#REBECA PACHECO CORREA - 21953259
+#FERNANDO VITOR TEIXEIRA NOGUEIRA - 21950643
+
+#INTRODUÇÃO A ORGANIZAÇÃO DE COMPUTADORES
+
+
+
+.data
+msg1: .asciiz "CALCULO DE AREA DE FIGURAS PLANAS\n"
+msg3: .asciiz "\nDigite o numero da opcao desejada: "
+msg2: .asciiz "QUADRADO - 1 | RETANGULO - 2 | TRIANGULO - 3 | TRAPEZIO - 4 | LOSANGO - 5 | CIRCULO - 6\n"
+msg4: .asciiz "DIGITE O VALOR DOS LADOS: "
+msg5: .asciiz "DIGITE O VALOR DA BASE: "
+msg6: .asciiz "DIGITE O VALOR DA ALTURA: "
+msg7: .asciiz "DIGITE O VALOR DA BASE MAIOR: "
+msg8: .asciiz "DIGITE O VALOR DA BASE MENOR: "
+msg9: .asciiz "DIGITE O VALOR DA DIAGONAL MAIOR: "
+msg10: .asciiz "DIGITE O VALOR DA DIAGONAL MENOR: "
+msg11: .asciiz "DIGITE O VALOR DO RAIO: "
+
+pi: .double 3.14
+zero: .double 0.0 
+
+zero2: .double 0.0
+
+.text
+
+#IMPRIMINDO AS MENSAGENS AO USUÁRIO
+li $v0, 4
+la $a0, msg1
+syscall
+
+li $v0, 4
+la $a0, msg2
+syscall
+
+li $v0, 4
+la $a0, msg3
+syscall
+
+
+#LENDO AS OPÇOES
+li $v0, 5
+syscall
+
+#ARMAZENA A OPÇÃO ESCOLHIDA
+move $t0, $v0
+
+#IF - SE A OPÇÃO FOR 1, CHAMA A FUNÇÃO QUADRADO
+beq $t0, 1,quadrado
+
+#IF - SE A OPÇÃO FOR 3, CHAMA A FUNÇÃO TRIANGULO
+beq $t0, 3, triangulo
+
+#IF - SE A OPÇÃO FOR 2, CHAMA A FUNÇÃO RETANGULO
+beq $t0, 2, retangulo
+
+#IF - SE A OPÇÃO FOR 4, CHAMA A FUNÇÃO TRAPEZIO
+beq $t0, 4, trapezio
+
+#IF - SE A OPÇÃO FOR 5, CHAMA A FUNÇÃO LOSANGO
+beq $t0, 5, losango
+
+#IF - SE A OPÇÃO FOR 6, CHAMA A FUNÇÃO CIRCULO
+beq $t0, 6, circulo
+
+
+
+
+#FUNÇÃO QUADRADO
+quadrado:
+	li $v0, 4
+	la $a0, msg4
+	syscall
+	
+	li $v0, 5
+	syscall 	
+	
+	move $t1, $v0
+	
+	mul $t2, $t1, $t1
+		
+	li $v0, 1
+	move $a0, $t2
+	syscall
+	
+	
+	#FINALIZA A FUNÇÃO PRINCIPAL	
+ 	li $v0,10
+	syscall
+	
+#FUNÇÃO TRIANGULO
+triangulo:
+	li $v0, 4
+	la $a0, msg5
+	syscall
+	
+	li $v0, 5
+	syscall
+	
+	move $t1, $v0
+	
+	li $v0, 4
+	la $a0, msg6
+	syscall
+	
+	li $v0, 5
+	syscall
+	
+	move $t2, $v0
+	
+	mul $t3, $t1, $t2
+	
+	div $t4, $t3, 2
+	
+	li $v0, 1
+	move $a0, $t4
+	syscall
+	
+	
+		
+	li $v0,10
+	syscall
+	
+	
+#FUNÇÃO RETANGULO	
+	
+retangulo:
+	li $v0, 4
+	la $a0, msg5
+	syscall
+	
+	li $v0, 5
+	syscall
+	
+	move $t1, $v0
+	
+	li $v0, 4
+	la $a0, msg6
+	syscall
+	
+	li $v0, 5
+	syscall
+	
+	move $t2, $v0
+	
+	mul $t3, $t1, $t2
+	
+	li $v0, 1
+	move $a0, $t3
+	syscall
+	
+	
+		
+	li $v0,10
+	syscall
+	
+#FUNÇÃO TRAPEZIO
+
+trapezio:
+	li $v0, 4
+	la $a0, msg7
+	syscall
+	
+	li $v0, 5
+	syscall
+	
+	move $t1, $v0
+	
+	li $v0, 4
+	la $a0, msg8
+	syscall
+	
+	li $v0, 5
+	syscall
+	
+	move $t2, $v0
+	
+	li $v0, 4
+	la $a0, msg6
+	syscall
+	
+	li $v0, 5
+	syscall
+	
+	move $t3, $v0
+	
+	add $t4, $t1, $t2
+	
+	mul $t5, $t4, $t3
+	
+	div $t6, $t5, 2
+	
+	 li $v0, 1
+	 move $a0, $t6
+	 syscall 
+	 
+	 	
+	li $v0,10
+	syscall
+	 
+
+#FUNÇÃO LOSANGO
+losango: 
+	li $v0, 4
+	la $a0, msg9
+	syscall
+	
+	li $v0, 6
+	syscall
+	
+	move $t1, $v0
+	
+	li $v0, 4
+	la $a0, msg10
+	syscall
+	
+	li $v0, 6
+	syscall
+	
+	move $t2, $v0
+	
+	mul $t3, $t1, $t2
+	
+	div $t4, $t3, 2
+	
+	li $v0, 1
+	move $a0, $t4
+	syscall
+	
+		
+	li $v0,10
+	syscall
+	
+#FUNÇÃO CIRCULO
+circulo:
+
+
+	li $v0, 4
+	la $a0, msg11
+	syscall
+	
+	li $v0, 7 #APOS LER UM NUMERO FLUTUANTE, O SYSCALL ARMAZENA AUTOMATICAMENTE NO $f0
+	syscall
+	
+	ldc1 $f2, zero #ARMAZENA A VARIAVEL GLOBAL ZERO EM $f2
+	add.d $f10, $f2, $f0 #ARMAZENA EM $F10 O VALOR DA SOMA DE $F0 E $F2 AFIM DE CONVERTER NUMEROS INTEIROS EM DECIMAIS
+	
+	ldc1 $f4, pi		#ARMAZENA A VARIAVEL GLOBAL PI EM $F4
+	
+	mul.d $f8, $f10, $f10 #ELEVA O RAIO AO QUADRADO E ARMAZENA O RESULTADO EM $F8
+	
+	mul.d $f12, $f8, $f4 #MULTIPLICA O VALOR DE PI PELO QUADRADO DO RAIO E ARMAZENA EM $F12	
+	li $v0, 3
+	syscall
+	
+	
+	
+	
+		
+li $v0,10
+syscall
+	
+	
+	
+	
+li $v0,10
+syscall
