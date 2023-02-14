@@ -1,11 +1,20 @@
 #Fernando Vitor Teixeira Nogueira - 21950643
 #Rebeca Pacheco Correa - 219
 
+
 .data
 msg1: .asciiz "CALCULO DE AREA DE FIGURAS PLANAS\n"
 msg3: .asciiz "\nDigite o numero da opcao desejada: "
 msg2: .asciiz "QUADRADO - 1 | RETANGULO - 2 | TRIANGULO - 3 | TRAPEZIO - 4 | LOSANGO - 5 | CIRCULO - 6\n"
-msg4: .asciiz "eh 5\n"
+msg4: .asciiz "DIGITE O VALOR DOS LADOS: "
+msg5: .asciiz "DIGITE O VALOR DA BASE: "
+msg6: .asciiz "DIGITE O VALOR DA ALTURA: "
+msg7: .asciiz "DIGITE O VALOR DA BASE MAIOR: "
+msg8: .asciiz "DIGITE O VALOR DA BASE MENOR: "
+msg9: .asciiz "DIGITE O VALOR DA DIAGONAL MAIOR: "
+msg10: .asciiz "DIGITE O VALOR DA DIAGONAL MENOR: "
+msg11: .asciiz "DIGITE O VALOR DO RAIO: "
+
 
 .text
 li $v0, 4
@@ -24,13 +33,157 @@ li $v0, 5
 syscall
 
 move $t0, $v0
-beq $t0, 5, imprime
-
-imprime:
+beq $t0, 1,quadrado
+beq $t0, 3, triangulo
+beq $t0, 2, retangulo
+beq $t0, 4, trapezio
+beq $t0, 5, losango
+beq $t0, 6, circulo
+quadrado:
 	li $v0, 4
 	la $a0, msg4
 	syscall
 	
+	li $v0, 5
+	syscall 	
+	
+	move $t1, $v0
+	
+	mul $t2, $t1, $t1
+		
+	li $v0, 1
+	move $a0, $t2
+	syscall
+	
+triangulo:
+	li $v0, 4
+	la $a0, msg5
+	syscall
+	
+	li $v0, 5
+	syscall
+	
+	move $t1, $v0
+	
+	li $v0, 4
+	la $a0, msg6
+	syscall
+	
+	li $v0, 5
+	syscall
+	
+	move $t2, $v0
+	
+	mul $t3, $t1, $t2
+	
+	div $t4, $t3, 2
+	
+	li $v0, 1
+	move $a0, $t4
+	syscall
+	
+retangulo:
+	li $v0, 4
+	la $a0, msg5
+	syscall
+	
+	li $v0, 5
+	syscall
+	
+	move $t1, $v0
+	
+	li $v0, 4
+	la $a0, msg6
+	syscall
+	
+	li $v0, 5
+	syscall
+	
+	move $t2, $v0
+	
+	mul $t3, $t1, $t2
+	
+	li $v0, 1
+	move $a0, $t3
+	syscall
+
+trapezio:
+	li $v0, 4
+	la $a0, msg7
+	syscall
+	
+	li $v0, 5
+	syscall
+	
+	move $t1, $v0
+	
+	li $v0, 4
+	la $a0, msg8
+	syscall
+	
+	li $v0, 5
+	syscall
+	
+	move $t2, $v0
+	
+	li $v0, 4
+	la $a0, msg6
+	syscall
+	
+	li $v0, 5
+	syscall
+	
+	move $t3, $v0
+	
+	add $t4, $t1, $t2
+	
+	mul $t5, $t4, $t3
+	
+	div $t6, $t5, 2
+	
+	 li $v0, 1
+	 move $a0, $t6
+	 syscall 
+	 
+losango: 
+	li $v0, 4
+	la $a0, msg9
+	syscall
+	
+	li $v0, 6
+	syscall
+	
+	move $t1, $v0
+	
+	li $v0, 4
+	la $a0, msg10
+	syscall
+	
+	li $v0, 6
+	syscall
+	
+	move $t2, $v0
+	
+	mul $t3, $t1, $t2
+	
+	div $t4, $t3, 2
+	
+	li $v0, 1
+	move $a0, $t4
+	syscall
+	
+circulo:
+	li $v0, 4
+	la $a0, msg11
+	syscall
+	
+	li $v0, 6
+	syscall
+	
+	move $t1, $v0
+	
+	mul $t2, $t1, $t1
+	
+	
 li $v0,10
 syscall
-	
